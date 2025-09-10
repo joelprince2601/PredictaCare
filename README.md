@@ -1,114 +1,73 @@
-# PredictaCare – AI-Driven Risk Prediction Engine for Chronic Care
+# Welcome to your Lovable project
 
-## 🚀 Project Overview
+## Project info
 
-**PredictaCare** is an advanced AI-powered platform designed to transform chronic care management by shifting healthcare from reactive to proactive patient protection. It predicts the risk of patient deterioration within the next 90 days using a sophisticated **dual-engine hybrid architecture** and provides actionable insights to support clinicians in preventing unplanned readmissions and optimizing care pathways.
+**URL**: https://lovable.dev/projects/11fdd572-3dc2-48ee-8f51-384be65ab6af
 
----
+## How can I edit this code?
 
-## 🎯 Key Features
+There are several ways of editing your application.
 
-- **Dual-Engine Architecture**
-  - **Static Risk Engine** (XGBoost): Processes demographic and clinical baseline features.
-  - **Temporal Dynamics Engine** (Transformer): Models irregular time-series patient data using **Clinical Time Encoding** and **Multi-Resolution Attention**.
-  - **Fusion Layer**: Combines static and temporal predictions with **attention-weighted ensembling** and performs **uncertainty quantification**.
+**Use Lovable**
 
-- **Explainable AI Insights**
-  - Global feature importance trends highlight overall risk drivers across the patient population.
-  - Local patient-level explanations use **SHAP values** and **Integrated Gradients** to produce clear, clinician-friendly narratives.
-  - Counterfactual intervention simulations show how specific actions impact patient risk.
+Simply visit the [Lovable Project](https://lovable.dev/projects/11fdd572-3dc2-48ee-8f51-384be65ab6af) and start prompting.
 
-- **Smart Triage Dashboard**
-  - Cohort Risk Heatmap visualizing patient risk severity.
-  - Interactive patient detail pages showing risk evolution timelines and intervention recommendations.
-  - Bulk action tools for efficient task and outreach management.
+Changes made via Lovable will be committed automatically to this repo.
 
-- **Real-Time Data Integration**
-  - Supports real-time data ingestion via **Kafka Streams** and **FHIR R4 APIs**.
-  - Combines EHR records, wearables, patient-reported data, and social determinants.
+**Use your preferred IDE**
 
-- **Robust Validation & Calibration**
-  - Time-aware cross-validation strategy.
-  - Hyperparameter optimization via **Optuna**.
-  - Calibration using **isotonic regression** and **temperature scaling**.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-- **High Impact & Economic Value**
-  - Enables proactive clinical decision-making with confidence intervals.
-  - Reduces preventable readmissions and optimizes clinician workload.
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
----
+Follow these steps:
 
-## ⚡️ How It Works
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-1. **Data Ingestion**
-   - Multi-modal sources: EHR, wearable devices, social determinants.
-   - Streaming pipeline powered by **Apache Kafka**.
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-2. **Feature Engineering**
-   - Advanced temporal features such as adherence trends, variability metrics, and clinical state evolution.
-   - Handles missing data through clinical context-aware imputation.
+# Step 3: Install the necessary dependencies.
+npm i
 
-3. **Prediction Process**
-   - Static and temporal engines process input data in parallel.
-   - Fusion layer combines outputs with uncertainty quantification.
-   - Final output is a 90-day risk probability score with explanations.
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
 
-4. **Explainability & Intervention Support**
-   - SHAP-based global and local explanations.
-   - Counterfactual analysis for “what-if” intervention impact.
-   - Confidence intervals quantify prediction certainty.
+**Edit a file directly in GitHub**
 
-5. **User Interface**
-   - Modern React-based dashboard with Material-UI components.
-   - Interactive D3.js visualizations for risk heatmaps and timelines.
-   - Mobile-responsive design optimized for clinical use.
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
----
+**Use GitHub Codespaces**
 
-## 📊 Evaluation Metrics
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-- AUROC
-- AUPRC
-- Brier Score
-- Expected Calibration Error
-- Sensitivity @ 20% alert rate
-- Confidence Interval Coverage
-- Demographic Parity
-- Equalized Odds
-- Calibration Equity
+## What technologies are used for this project?
 
----
+This project is built with:
 
-## ⚙️ Tech Stack
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-- Backend: FastAPI, PostgreSQL, ClickHouse, Redis, Apache Kafka
-- AI/ML: XGBoost, PyTorch Transformers, SHAP, Captum, Optuna, MLflow
-- Frontend: React 18, TypeScript, Material-UI, D3.js, Plotly.js
-- Data Orchestration: Apache Airflow
-- Security: OAuth 2.0, AES-256 Encryption, HIPAA Compliance
-- Deployment: Docker, Kubernetes, Cloud (AWS/Azure/GCP)
+## How can I deploy this project?
 
----
+Simply open [Lovable](https://lovable.dev/projects/11fdd572-3dc2-48ee-8f51-384be65ab6af) and click on Share -> Publish.
 
-## 🎯 Impact & Value Proposition
+## Can I connect a custom domain to my Lovable project?
 
-- Proactive 90-day deterioration forecasting with actionable insights.
-- Reduces care team workload by prioritizing high-impact patients.
-- Improves patient outcomes and reduces preventable readmissions.
-- Provides measurable ROI: ~500% in the first year per 10,000 patient panel.
+Yes, you can!
 
----
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-## 🔮 Future Roadmap
-
-- Integration of causal intervention modeling and reinforcement learning for automated care optimization.
-- Expansion to additional chronic conditions (COPD, CKD, mental health).
-- Advanced mobile nurse field app with offline capability.
-- Federated learning for privacy-preserving multi-site model training.
-
----
-
-## ⚡️ Conclusion
-
-PredictaCare offers a futuristic and scalable solution designed for real-world clinical deployment. By combining advanced AI techniques with explainable insights and robust real-time integration, it empowers healthcare teams to transform patient care from reactive to data-driven and preventive.
-
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

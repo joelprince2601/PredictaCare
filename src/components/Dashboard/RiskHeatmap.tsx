@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Eye, Phone, Mail } from "lucide-react";
+import { MoreHorizontal, Eye, Phone, Mail, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CallModal } from "./CallModal";
+import { ScheduleModal } from "./ScheduleModal";
 
 interface Patient {
   id: string;
@@ -116,15 +119,32 @@ const mockPatients: Patient[] = [
 
 const getRiskColor = (level: string) => {
   switch (level) {
-    case 'critical': return 'bg-red-900/30 border-red-500 text-red-300';
-    case 'high': return 'bg-orange-900/30 border-orange-500 text-orange-300';
-    case 'moderate': return 'bg-yellow-900/30 border-yellow-500 text-yellow-300';
-    case 'low': return 'bg-green-900/30 border-green-500 text-green-300';
-    default: return 'bg-gray-900/30 border-gray-500 text-gray-300';
+    case 'critical': return 'bg-risk-critical/20 border-risk-critical/40 text-risk-critical';
+    case 'high': return 'bg-risk-high/20 border-risk-high/40 text-risk-high';
+    case 'moderate': return 'bg-risk-moderate/20 border-risk-moderate/40 text-risk-moderate';
+    case 'low': return 'bg-risk-low/20 border-risk-low/40 text-risk-low';
+    default: return 'bg-muted/20 border-border text-muted-foreground';
   }
 };
 
 export function RiskHeatmap() {
+  const [callModal, setCallModal] = useState<{isOpen: boolean, patient: string, riskLevel?: 'low' | 'moderate' | 'high' | 'critical'}>({
+    isOpen: false,
+    patient: ""
+  });
+  const [scheduleModal, setScheduleModal] = useState<{isOpen: boolean, patient: string, riskLevel?: 'low' | 'moderate' | 'high' | 'critical'}>({
+    isOpen: false,
+    patient: ""
+  });
+
+  const handleCall = (patientName: string, riskLevel: 'low' | 'moderate' | 'high' | 'critical') => {
+    setCallModal({ isOpen: true, patient: patientName, riskLevel });
+  };
+
+  const handleSchedule = (patientName: string, riskLevel: 'low' | 'moderate' | 'high' | 'critical') => {
+    setScheduleModal({ isOpen: true, patient: patientName, riskLevel });
+  };
+
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-6">
@@ -137,18 +157,18 @@ export function RiskHeatmap() {
         </Button>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {mockPatients.map((patient) => (
           <div key={patient.id} className={cn(
-            "p-4 rounded-lg border-l-4 transition-colors hover:bg-muted/50",
-            patient.riskLevel === 'critical' ? 'border-l-red-500 bg-red-950/20' :
-            patient.riskLevel === 'high' ? 'border-l-orange-500 bg-orange-950/20' :
-            patient.riskLevel === 'moderate' ? 'border-l-yellow-500 bg-yellow-950/20' :
-            'border-l-green-500 bg-green-950/20'
+            "p-6 rounded-lg border-l-4 transition-colors hover:bg-muted/30",
+            patient.riskLevel === 'critical' ? 'border-l-risk-critical bg-risk-critical/10' :
+            patient.riskLevel === 'high' ? 'border-l-risk-high bg-risk-high/10' :
+            patient.riskLevel === 'moderate' ? 'border-l-risk-moderate bg-risk-moderate/10' :
+            'border-l-risk-low bg-risk-low/10'
           )}>
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <div className="flex items-center space-x-3 mb-2">
+                <div className="flex items-center space-x-4 mb-3">
                   <h4 className="font-medium text-foreground">{patient.name}</h4>
                   <span className="text-sm text-muted-foreground">Age {patient.age}</span>
                   <Badge 
@@ -159,7 +179,7 @@ export function RiskHeatmap() {
                   </Badge>
                 </div>
                 
-                <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+                <div className="flex items-center flex-wrap gap-x-8 gap-y-2 text-sm text-muted-foreground">
                   <span>Last contact: {patient.lastContact}</span>
                   <span>Conditions: {patient.conditions.join(", ")}</span>
                   {patient.nextAppointment && (
@@ -174,8 +194,19 @@ export function RiskHeatmap() {
                 <Button variant="ghost" size="sm">
                   <Eye className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="sm">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => handleCall(patient.name, patient.riskLevel)}
+                >
                   <Phone className="h-4 w-4" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => handleSchedule(patient.name, patient.riskLevel)}
+                >
+                  <Calendar className="h-4 w-4" />
                 </Button>
                 <Button variant="ghost" size="sm">
                   <Mail className="h-4 w-4" />
@@ -188,6 +219,20 @@ export function RiskHeatmap() {
           </div>
         ))}
       </div>
+
+      <CallModal 
+        isOpen={callModal.isOpen}
+        onClose={() => setCallModal({isOpen: false, patient: ""})}
+        patientName={callModal.patient}
+        riskLevel={callModal.riskLevel}
+      />
+
+      <ScheduleModal 
+        isOpen={scheduleModal.isOpen}
+        onClose={() => setScheduleModal({isOpen: false, patient: ""})}
+        patientName={scheduleModal.patient}
+        riskLevel={scheduleModal.riskLevel}
+      />
     </Card>
   );
 }
